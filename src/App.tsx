@@ -172,7 +172,7 @@ const translations = {
             stats: [
                 { number: '18,000 tons', label: 'Daily food waste' },
                 { number: '3M people', label: 'Missing meals' },
-                { number: '20 trillion won', label: 'Annual food waste cost' },
+                { number: '20 trillion ₩', label: 'Annual food waste cost' },
             ],
             conclusion:
                 'While food is being wasted on one side, there are people struggling with meals on the other.\nCan we bridge this gap?',
