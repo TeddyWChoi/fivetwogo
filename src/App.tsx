@@ -411,7 +411,7 @@ function ProblemSection({ lang }: { lang: Language }) {
                     initial={{ opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : {}}
                     transition={{ delay: 0.8, duration: 0.8 }}
-                    className="text-2xl text-gray-600 mt-20 text-center max-w-3xl mx-auto leading-relaxed whitespace-pre-line"
+                    className="text-2xl text-gray-600 mt-20 text-center mx-auto leading-relaxed whitespace-pre-line"
                 >
                     {t.conclusion}
                 </motion.p>
@@ -709,7 +709,7 @@ function ImpactSection({ lang }: { lang: Language }) {
                     transition={{ delay: 0.6 }}
                     className="text-center"
                 >
-                    <p className="text-3xl text-gray-700 max-w-3xl mx-auto leading-relaxed whitespace-pre-line">
+                    <p className="text-3xl text-gray-700 mx-auto leading-relaxed whitespace-pre-line">
                         {t.conclusion}
                     </p>
                 </motion.div>
@@ -741,7 +741,7 @@ function CTASection({ lang }: { lang: Language }) {
                 className="text-center z-10"
             >
                 <h2 className="text-8xl font-black text-white mb-8">{t.title}</h2>
-                <p className="text-3xl text-white/90 mb-16 max-w-3xl mx-auto">{t.subtitle}</p>
+                <p className="text-3xl text-white/90 mb-16 mx-auto">{t.subtitle}</p>
 
                 <motion.button
                     whileHover={{ scale: 1.05 }}
