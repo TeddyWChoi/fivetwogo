@@ -123,20 +123,20 @@ const translations = {
                     description: '남은 음식을 사진과 함께 간단히 등록하면, 자동으로 라이더가 매칭됩니다.',
                 },
                 {
-                    title: '배달 추적',
-                    description: '기부한 음식이 어디로 가는지, 누구에게 전달되는지 실시간으로 추적합니다.',
+                    title: '라이더 매칭 중',
+                    description: '가장 가까운 라이더를 자동으로 찾아, 당신의 기부가 빠르게 전달됩니다.',
                 },
                 {
-                    title: '착한 가게 지도',
+                    title: '배달 중',
                     description:
-                        '주변의 착한 가게들을 확인하고, CSR 랭킹을 통해 사회적 책임을 실천하는 기업을 응원합니다.',
+                        '기부한 음식이 안전하게 전달되는 과정을 실시간으로 확인할 수 있습니다.',
                 },
                 {
-                    title: '나의 기부 통계',
-                    description: '내가 지금까지 기부한 식사 수와 절약한 음식물 쓰레기를 확인하세요.',
+                    title: ' 배달 추적',
+                    description: '기부한 음식의 이동 경로와 도착 시간을 실시간으로 확인할 수 있습니다.',
                 },
-                { title: '커뮤니티', description: '다른 사용자들과 나눔 경험을 공유하고 서로 격려하세요.' },
-                { title: '랭킹 시스템', description: '가장 많이 기부한 개인과 기업을 확인하고 함께 경쟁하세요.' },
+                { title: '배급 완료', description: '기부한 음식이 안전하게 전달되어, 당신의 나눔이 세상에 전해졌음을 보여줍니다.' },
+                { title: '랭킹 시스템', description: '가장 많이 기부한 개인과 기업을 확인하고 함께 성장하세요.' },
                 { title: '착한 가게 지도', description: '내 주변에 어떤 착한 가게들이 있는지 확인해보세요.' },
                 { title: '프로필 관리', description: '내 정보를 관리하고 기부 내역을 자세히 살펴보세요.' },
             ],
@@ -210,7 +210,10 @@ const translations = {
             title: 'App Tour',
             hint: 'Scroll to view all screens',
             screens: [
-                { title: 'Welcome', description: "Welcome to FiveTwoGo. Let's create miracles of sharing together." },
+                {
+                    title: 'Welcome',
+                    description: "Welcome to FiveTwoGo. Let's create the miracle of sharing together.",
+                },
                 {
                     title: 'Real-time Donation Status',
                     description: 'Check real-time donations made today and see the change your donation has created.',
@@ -220,29 +223,28 @@ const translations = {
                     description: 'Register leftover food with photos and automatically get matched with riders.',
                 },
                 {
+                    title: 'Rider Matching in Progress',
+                    description: 'Automatically finds the nearest rider so your donation is delivered quickly.',
+                },
+                {
+                    title: 'In Delivery',
+                    description: 'You can check in real time that your donated food is being delivered safely.',
+                },
+                {
                     title: 'Delivery Tracking',
-                    description: 'Track in real-time where your donated food goes and who receives it.',
+                    description: 'Check the route and estimated arrival time of your donated food in real time.',
                 },
                 {
-                    title: 'Conscious Store Map',
-                    description:
-                        'Discover conscious stores nearby and support companies practicing social responsibility through CSR rankings.',
-                },
-                {
-                    title: 'My Donation Stats',
-                    description: "See how many meals you've donated and how much food waste you've prevented.",
-                },
-                {
-                    title: 'Community',
-                    description: 'Share your sharing experiences with other users and encourage each other.',
+                    title: 'Distribution Complete',
+                    description: 'Your donated food has been safely delivered—your sharing has reached someone in need.',
                 },
                 {
                     title: 'Ranking System',
-                    description: 'Check the most donating individuals and companies and compete together.',
+                    description: 'See top donating individuals and companies and grow together.',
                 },
                 {
-                    title: 'Notifications',
-                    description: 'Receive alerts for new donation requests and delivery completions.',
+                    title: 'Conscious Store Map',
+                    description: 'Discover conscious stores around you.',
                 },
                 {
                     title: 'Profile Management',
