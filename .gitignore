@@ -1,37 +1,8 @@
-# Dependencies
+
+src/assets/*.mp4
+
+src/assets/*.mp4
+
 node_modules/
-
-# Build outputs
-dist/
 build/
-.vite/
-.cache/
-
-# Logs
-logs/
-*.log
-*.log.*
-
-# macOS
-.DS_Store
-**/.DS_Store
-.AppleDouble
-.LSOverride
-
-# IDEs/Editors
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Env files
-.env
-.env.*
-
-# Coverage
-coverage/
-
-# Misc
-*.local
-*.tmp
-*.temp
+src/assets/*.mp4

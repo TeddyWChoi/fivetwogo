@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, useScroll, useTransform, useInView } from 'motion/react';
 
 // Import local images
@@ -7,27 +8,29 @@ import image2 from './assets/people.jpg';
 import breadfish from './assets/breadfish.jpg';
 import logoUrl from './assets/logo.png';
 import appScreen1 from './assets/1.jpg';
-import appScreen2 from './assets/2.jpg';
-import appScreen3 from './assets/3.jpg';
-import appScreen4 from './assets/4.jpg';
-import appScreen5 from './assets/5.jpg';
-import appScreen6 from './assets/6.jpg';
-import appScreen7 from './assets/7.jpg';
-import appScreen8 from './assets/8.jpg';
-import appScreen9 from './assets/9.jpg';
-import appScreen10 from './assets/10.jpg';
+import appScreen2Video from './assets/2.mp4';
+import appScreen3Video from './assets/3.mp4';
+import appScreen4Video from './assets/4.mp4';
+import appScreen5Video from './assets/5.mp4';
+import appScreen6Video from './assets/6.mp4';
+import appScreen7Video from './assets/7.mp4';
+import appScreen8Video from './assets/8.mp4';
+import appScreen9Video from './assets/9.mp4';
+import appScreen10Video from './assets/10.mp4';
 
-const appScreenUrls = [
-    appScreen1,
-    appScreen2,
-    appScreen3,
-    appScreen4,
-    appScreen5,
-    appScreen6,
-    appScreen7,
-    appScreen8,
-    appScreen9,
-    appScreen10,
+type AppScreenMedia = { type: 'image' | 'video'; src: string };
+
+const appScreenMedia: AppScreenMedia[] = [
+    { type: 'image', src: appScreen1 },
+    { type: 'video', src: appScreen2Video },
+    { type: 'video', src: appScreen3Video },
+    { type: 'video', src: appScreen4Video },
+    { type: 'video', src: appScreen5Video },
+    { type: 'video', src: appScreen6Video },
+    { type: 'video', src: appScreen7Video },
+    { type: 'video', src: appScreen8Video },
+    { type: 'video', src: appScreen9Video },
+    { type: 'video', src: appScreen10Video },
 ];
 
 // Language Types
@@ -128,15 +131,17 @@ const translations = {
                 },
                 {
                     title: '배달 중',
-                    description:
-                        '기부한 음식이 안전하게 전달되는 과정을 실시간으로 확인할 수 있습니다.',
+                    description: '기부한 음식이 안전하게 전달되는 과정을 실시간으로 확인할 수 있습니다.',
                 },
                 {
-                    title: ' 배달 추적',
+                    title: '배달 추적',
                     description: '기부한 음식의 이동 경로와 도착 시간을 실시간으로 확인할 수 있습니다.',
                 },
-                { title: '배급 완료', description: '기부한 음식이 안전하게 전달되어, 당신의 나눔이 세상에 전해졌음을 보여줍니다.' },
-                { title: '랭킹 시스템', description: '가장 많이 기부한 개인과 기업을 확인하고 함께 성장하세요.' },
+                {
+                    title: '배급 완료',
+                    description: '기부한 음식이 안전하게 전달되어, 당신의 나눔이 세상에 전해졌음을 보여줍니다.',
+                },
+                { title: '랭킹 시스템', description: '가장 많이 기부한 개인과 기업을 확인하고 함께 경쟁하세요.' },
                 { title: '착한 가게 지도', description: '내 주변에 어떤 착한 가게들이 있는지 확인해보세요.' },
                 { title: '프로필 관리', description: '내 정보를 관리하고 기부 내역을 자세히 살펴보세요.' },
             ],
@@ -154,7 +159,7 @@ const translations = {
         cta: {
             title: '지금 시작하세요',
             subtitle: 'FiveTwoGo와 함께 나눔의 기적을 경험하세요',
-            button: '앱 다운로드',
+            button: '비디오 보기',
             stores: ['App Store', 'Google Play'],
         },
         footer: {
@@ -172,7 +177,7 @@ const translations = {
             stats: [
                 { number: '18,000 tons', label: 'Daily food waste' },
                 { number: '3M people', label: 'Missing meals' },
-                { number: '20 trillion ₩', label: 'Annual food waste cost' },
+                { number: '20 trillion won', label: 'Annual food waste cost' },
             ],
             conclusion:
                 'While food is being wasted on one side, there are people struggling with meals on the other.\nCan we bridge this gap?',
@@ -180,9 +185,9 @@ const translations = {
         concept: {
             title: 'The Miracle of Five Loaves',
             subtitle: 'Like Jesus feeding thousands with five loaves and two fish,\nwe share what we have.',
-            vision: "FiveTwoGo's Vision",
+            vision: 'FiveTwoGo Vision',
             visionText:
-                "Small acts of sharing create big changes.\nYour leftover meal can become someone's precious meal.",
+                'Small acts of sharing create big changes.\nYour leftover meal can become a precious meal for someone.',
         },
         features: {
             title: 'How It Works',
@@ -210,10 +215,7 @@ const translations = {
             title: 'App Tour',
             hint: 'Scroll to view all screens',
             screens: [
-                {
-                    title: 'Welcome',
-                    description: "Welcome to FiveTwoGo. Let's create the miracle of sharing together.",
-                },
+                { title: 'Welcome', description: "Welcome to FiveTwoGo. Let's create miracles of sharing together." },
                 {
                     title: 'Real-time Donation Status',
                     description: 'Check real-time donations made today and see the change your donation has created.',
@@ -224,7 +226,7 @@ const translations = {
                 },
                 {
                     title: 'Rider Matching in Progress',
-                    description: 'Automatically finds the nearest rider so your donation is delivered quickly.',
+                    description: 'Register leftover food with photos and automatically get matched with riders.',
                 },
                 {
                     title: 'In Delivery',
@@ -236,11 +238,12 @@ const translations = {
                 },
                 {
                     title: 'Distribution Complete',
-                    description: 'Your donated food has been safely delivered—your sharing has reached someone in need.',
+                    description:
+                        'Your donated food has been safely delivered—your sharing has reached someone in need.',
                 },
                 {
                     title: 'Ranking System',
-                    description: 'See top donating individuals and companies and grow together.',
+                    description: 'Check the most donating individuals and companies and compete together.',
                 },
                 {
                     title: 'Conscious Store Map',
@@ -265,7 +268,7 @@ const translations = {
         cta: {
             title: 'Get Started Now',
             subtitle: 'Experience the miracle of sharing with FiveTwoGo',
-            button: 'Download App',
+            button: 'Watch Video',
             stores: ['App Store', 'Google Play'],
         },
         footer: {
@@ -411,7 +414,7 @@ function ProblemSection({ lang }: { lang: Language }) {
                     initial={{ opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : {}}
                     transition={{ delay: 0.8, duration: 0.8 }}
-                    className="text-2xl text-gray-600 mt-20 text-center mx-auto leading-relaxed whitespace-pre-line"
+                    className="text-2xl text-gray-600 mt-20 text-center max-w-3xl mx-auto leading-relaxed whitespace-pre-line"
                 >
                     {t.conclusion}
                 </motion.p>
@@ -618,20 +621,38 @@ function AppScreensSection({ lang }: { lang: Language }) {
                                 >
                                     {/* 이미지 컨테이너 */}
                                     <div className="relative w-full h-full overflow-hidden">
-                                        {appScreenUrls.map((url, index) => (
-                                            <motion.img
-                                                key={index}
-                                                src={url}
-                                                alt={`앱 화면 ${index + 1}`}
-                                                className="absolute top-0 left-0 w-full h-full object-cover object-top"
-                                                initial={{ opacity: 0, scale: 1.05 }}
-                                                animate={{
-                                                    opacity: currentIndex === index ? 1 : 0,
-                                                    scale: currentIndex === index ? 1 : 1.05,
-                                                }}
-                                                transition={{ duration: 0.5 }}
-                                            />
-                                        ))}
+                                        {appScreenMedia.map((item, index) =>
+                                            item.type === 'image' ? (
+                                                <motion.img
+                                                    key={`img-${index}`}
+                                                    src={item.src}
+                                                    alt={`앱 화면 ${index + 1}`}
+                                                    className="absolute top-0 left-0 w-full h-full object-cover object-top"
+                                                    initial={{ opacity: 0, scale: 1.05 }}
+                                                    animate={{
+                                                        opacity: currentIndex === index ? 1 : 0,
+                                                        scale: currentIndex === index ? 1 : 1.05,
+                                                    }}
+                                                    transition={{ duration: 0.5 }}
+                                                />
+                                            ) : (
+                                                <motion.video
+                                                    key={`vid-${index}`}
+                                                    src={item.src}
+                                                    className="absolute top-0 left-0 w-full h-full object-cover object-top"
+                                                    autoPlay
+                                                    loop
+                                                    muted
+                                                    playsInline
+                                                    initial={{ opacity: 0, scale: 1.05 }}
+                                                    animate={{
+                                                        opacity: currentIndex === index ? 1 : 0,
+                                                        scale: currentIndex === index ? 1 : 1.05,
+                                                    }}
+                                                    transition={{ duration: 0.5 }}
+                                                />
+                                            )
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -644,7 +665,7 @@ function AppScreensSection({ lang }: { lang: Language }) {
 
                 {/* 진행도 인디케이터 */}
                 <div className="absolute bottom-12 flex gap-2">
-                    {appScreenUrls.map((_, index) => (
+                    {appScreenMedia.map((_, index) => (
                         <div
                             key={index}
                             className={`h-2 rounded-full transition-all duration-300 ${
@@ -709,7 +730,7 @@ function ImpactSection({ lang }: { lang: Language }) {
                     transition={{ delay: 0.6 }}
                     className="text-center"
                 >
-                    <p className="text-3xl text-gray-700 mx-auto leading-relaxed whitespace-pre-line">
+                    <p className="text-3xl text-gray-700 max-w-3xl mx-auto leading-relaxed whitespace-pre-line">
                         {t.conclusion}
                     </p>
                 </motion.div>
@@ -723,6 +744,7 @@ function CTASection({ lang }: { lang: Language }) {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
     const t = translations[lang].cta;
+    const [showVideo, setShowVideo] = useState(false);
 
     return (
         <section
@@ -741,11 +763,12 @@ function CTASection({ lang }: { lang: Language }) {
                 className="text-center z-10"
             >
                 <h2 className="text-8xl font-black text-white mb-8">{t.title}</h2>
-                <p className="text-3xl text-white/90 mb-16 mx-auto">{t.subtitle}</p>
+                <p className="text-3xl text-white/90 mb-16 max-w-3xl mx-auto">{t.subtitle}</p>
 
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={() => setShowVideo(true)}
                     className="bg-white text-[#e73a40] px-16 py-6 rounded-full text-2xl font-black shadow-2xl hover:shadow-3xl transition-shadow"
                 >
                     {t.button}
@@ -759,6 +782,46 @@ function CTASection({ lang }: { lang: Language }) {
                     ))}
                 </div>
             </motion.div>
+
+            {showVideo &&
+                createPortal(
+                    <div className="fixed inset-0 flex items-center justify-center bg-black/90" style={{ zIndex: 999 }}>
+                        <div className="relative w-full h-full max-w-6xl p-4">
+                            <button
+                                aria-label="Close"
+                                onClick={() => setShowVideo(false)}
+                                className="absolute top-4 right-0 bg-white text-gray-900 rounded-full p-3 shadow-2xl hover:bg-white/90 active:scale-95 transition"
+                                style={{ zIndex: 9999 }}
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="lucide lucide-x w-8 h-8"
+                                >
+                                    <path d="M18 6 6 18"></path>
+                                    <path d="m6 6 12 12"></path>
+                                </svg>
+                            </button>
+                            <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+                                <iframe
+                                    src="https://www.youtube.com/embed/y9JbXTKWMcY?autoplay=1&mute=0&playsinline=1"
+                                    title="FiveTwoGo Video"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowFullScreen
+                                    className="absolute top-0 left-0 w-full h-full rounded-xl shadow-2xl"
+                                />
+                            </div>
+                        </div>
+                    </div>,
+                    document.body
+                )}
         </section>
     );
 }
@@ -781,7 +844,7 @@ function Footer({ lang }: { lang: Language }) {
 
 export default function App() {
     const [scrollProgress, setScrollProgress] = useState(0);
-    const [lang, setLang] = useState<Language>('ko');
+    const [lang, setLang] = useState<Language>('en');
 
     const toggleLanguage = () => {
         setLang((prev) => (prev === 'ko' ? 'en' : 'ko'));
